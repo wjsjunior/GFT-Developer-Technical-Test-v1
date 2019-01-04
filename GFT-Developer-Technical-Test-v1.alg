@@ -1,0 +1,166 @@
+algoritmo "Gft_test"
+
+var
+horario, selecao:caractere
+pilha_pedido:vetor [1..10]de caractere
+
+// separar string digitado com virgula na entrada
+procedimento separar_string(selecao_pedido:caractere)
+var
+   pedido: caractere
+   i:inteiro
+   tamanho_string:inteiro
+inicio
+tamanho_string <-Compr(selecao_pedido)
+para i de 1 ate tamanho_string faca
+     pedido <- copia(selecao_pedido;i;1)
+     pilha_pedido[i]<-pedido
+fimpara
+fimprocedimento
+
+//tela do cardapio fixa
+procedimento menu_tela()
+inicio
+      escreval("--------------------------------------------------------------")
+      escreval("           Seleção| Tipo     | Manhã  | Noite")
+      escreval("              1   | entrada  | ovos   | bife")
+      escreval("              2   | lado     | torrada| batata")
+      escreval("              3   | bebida   | café   | vinho")
+      escreval("              4   | sobremesa| S/Opção| bolo")
+      escreval("--------------------------------------------------------------")
+      escreval()
+fimprocedimento
+
+//imprime os pedido feitos
+procedimento imprimir()
+var
+i,x,cont1,cont2,cont3,cont4,cont5:inteiro
+soma_cafe,soma_batata:inteiro
+inicio
+para i de 1 ate 10 faca
+   escolha(pilha_pedido[i])
+       caso "1"
+          cont1<-cont1+1
+       caso "2"
+          cont2<-cont2+1
+       caso "3"
+          cont3<-cont3+1
+       caso "4"
+          cont4<-cont4+1
+       caso "5"
+          cont5<-cont5+1
+    fimescolha
+fimpara
+
+// pedidos cardapio da manhã
+se (horario = "manhã") ou (horario = "MANHÃ")entao
+    escreva("Saída: ")
+    para x de 1 ate cont1 faca
+           se (x = 1) entao
+                 escreva("Ovos, ")
+           senao
+                 escreva("Erro, ")
+           fimse
+    fimpara
+    
+    para x de 1 ate cont2 faca
+           se (x = 1) entao
+                 escreva("Torrada, ")
+           senao
+                 escreva("Erro, ")
+           fimse
+    fimpara
+    
+    se cont3<>0 entao
+       enquanto (cont3<>0)faca
+           cont3<-cont3-1
+           soma_cafe<-soma_cafe +1
+       fimenquanto
+       se (soma_cafe = 1) entao
+           escreva("Café, ")
+       senao
+           escreva("Café(",soma_cafe,"X), ")
+       fimse
+    fimse
+    para x de 1 ate cont4 faca
+           se (x = 1) entao
+                 escreva("Sem Opção, ")
+           senao
+                 escreva("Erro, ")
+           fimse
+    fimpara
+    se cont5<>0 entao
+       enquanto (cont5<>0)faca
+           cont5<-cont5-1
+            escreva("Erro, ")
+       fimenquanto
+    fimse
+fimse
+
+//pedidos cardapio da tarde
+se (horario = "noite") ou (horario = "NOITE")entao
+    escreva("Saída: ")
+    para x de 1 ate cont1 faca
+           se (x = 1) entao
+                 escreva("Bife, ")
+           senao
+                 escreva("Erro, ")
+           fimse
+    fimpara
+    
+    se cont2<>0 entao
+       enquanto (cont2<>0)faca
+           cont2<-cont2-1
+           soma_batata<-soma_batata +1
+       fimenquanto
+       se (soma_batata = 1) entao
+           escreva("Batata, ")
+       senao
+           escreva("Batata(",soma_batata,"X), ")
+       fimse
+    fimse
+
+    para x de 1 ate cont3 faca
+           se (x = 1) entao
+                 escreva("Vinho, ")
+           senao
+                 escreva("Erro, ")
+           fimse
+    fimpara
+
+    para x de 1 ate cont4 faca
+           se (x = 1) entao
+                 escreva("Bolo, ")
+           senao
+                 escreva("Erro, ")
+           fimse
+    fimpara
+    
+    se cont5<>0 entao
+       enquanto (cont5<>0)faca
+           cont5<-cont5-1
+           escreva("Erro, ")
+       fimenquanto
+    fimse
+fimse
+escreval()
+Fimprocedimento
+
+//menu de entrada
+inicio
+menu_tela()
+escreval ("Insira o horário corretamente como abaixo")
+escreval("manhã ou noite ?: "  )
+leia(horario)
+
+limpatela
+menu_tela()
+escreval("Insira uma ou mais das seleção acima separando com , ")
+escreva("Entrada: ",horario,",")
+leia(selecao)
+separar_string(selecao)
+imprimir()
+
+fimalgoritmo
+
+
